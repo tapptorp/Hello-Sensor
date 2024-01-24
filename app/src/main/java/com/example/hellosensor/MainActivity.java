@@ -2,6 +2,7 @@ package com.example.hellosensor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
@@ -17,7 +18,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView textView;
     private SensorManager sensorManager;
     private Sensor sensor;
+    private boolean accelerometerActive = false;
 
+    private Sensor accelerometer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +28,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         Button button1 = findViewById(R.id.button1);
-
         button1.setOnClickListener(this);
-
         textView = findViewById(R.id.text_accelerometer);
+
+        Button button2 = findViewById(R.id.button2);
+        button2.setOnClickListener(this);
 
 
     }
@@ -48,13 +52,30 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button1:
-                Toast.makeText(this,"Button 1 clicked", Toast.LENGTH_SHORT).show();
-
-                sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-                sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-                sensorManager.registerListener(MainActivity.this,sensor,sensorManager.SENSOR_DELAY_NORMAL);
+                toggleAccelerometer();
                 break;
+
+            case R.id.button2:
+                //Toast.makeText(this, "button 2 clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, ActivityMarshmallow.class));
+
+
+        }
+    }
+
+    private void toggleAccelerometer() {
+        if (accelerometerActive) {
+            // Code to turn off the accelerometer
+            sensorManager.unregisterListener(this, accelerometer);
+            Toast.makeText(this, "Accelerometer turned off", Toast.LENGTH_SHORT).show();
+        } else {
+            // Code to turn on the accelerometer
+            sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            sensorManager.registerListener(MainActivity.this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+            Toast.makeText(this, "Accelerometer turned on", Toast.LENGTH_SHORT).show();
         }
 
+        accelerometerActive = !accelerometerActive; // Toggle the accelerometer state
     }
 }
