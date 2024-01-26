@@ -10,7 +10,7 @@
         android:id="@+id/buttonM1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="Back"
         tools:layout_editor_absoluteX="134dp"
         tools:layout_editor_absoluteY="89dp"
         tools:ignore="MissingConstraints" />
@@ -25,4 +25,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/marshmallow"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/buttonM2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vibrate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="156dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
