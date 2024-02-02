@@ -3,6 +3,7 @@ package com.example.hellosensor;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
@@ -33,6 +34,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         Button button2 = findViewById(R.id.button2);
         button2.setOnClickListener(this);
+
+
+        View rootView = getWindow().getDecorView().getRootView();
+
+        rootView.setBackgroundColor(Color.MAGENTA);
 
 
     }
